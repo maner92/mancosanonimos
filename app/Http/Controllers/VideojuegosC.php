@@ -37,20 +37,25 @@ class VideojuegosC extends Controller
      */
     public function store(Request $request)
     {
-        #En esta parte se crea la opcion de validar los datos
         $request->validate([
-            'name'    => 'required',
-            'email'   => ['required','email','unique:users'],
-            'password'=> ['required','min:8']
-
+            'videojuego'    => ['required','unique:videojuego'],
+            'categoria'=> ['required'],
+            'plataforma'=> ['required'],
+            'clasificacion'=> ['required'],
+            'precio'=> ['required'],
+            'descripcion'   => ['required', 'max:200'],
+            'imagen'   => ['required|image|mimes:jpeg,png|max:3000']
         ]);
         Videojuegos::create([
-            'name'=> $request->name,
-            'email'=> $request->email,
-            'password'=> bcrypt($request->password),
+            'videojuego'    => $request->input('videojuego'),
+            'categoria'=> $request->input('categoria'),
+            'plataforma'=> $request->input('plataforma'),
+            'clasificacion'=> $request->input('clasificacion'),
+            'precio_compra'=> $request->input('precio_compra'),
+            'descripcion'   => $request->input('descripcion'),
+            'imagen'=>$request->input('name')->file('file')->store('imagenes', 'public')
         ]);
-
-        return back();
+        return redirect('videojuego')->with('status','Registro exitoso gracias');
     }
 
     /**
@@ -89,7 +94,7 @@ class VideojuegosC extends Controller
         $videojuego = Videojuegos::find($id);
         
         $videojuego->update($request->all());
-        return redirect('videojuego');
+        return redirect('videojuego')->with('status', 'Registro Modificado con exito');
     }
 
     /**
@@ -103,6 +108,6 @@ class VideojuegosC extends Controller
         $videojuego = Videojuegos::find($id);
         $videojuego->delete();
 
-        return back();#Metodo para regresar a vista anterior
+        return redirect('videojuego')->with('status', 'Registro Eliminado con exito');#Metodo para regresar a vista anterior
     }
 }

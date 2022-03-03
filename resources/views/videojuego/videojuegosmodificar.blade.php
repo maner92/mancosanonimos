@@ -45,7 +45,7 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Imagen</label>
-                      <input type="file" class="form-control" name="imagen" value="{{ $videojuegos->imagen }}">
+                      <input class="mb-3" type="file" name="imagen" value="{{ $videojuegos->imagen }}">
                     <div>
                     <div class="mt-3">
                       <button type="submit" class="btn btn-primary">Submit</button>

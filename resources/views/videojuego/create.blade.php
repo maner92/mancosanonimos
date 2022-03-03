@@ -14,31 +14,39 @@
                         </div>
                     @endif
 
-                    <form action="" method="Post" encrype="multipart/form-date">
+                    <form action="{{ route('videojuego.store')}}" method="POSTs" encrype="multipart/form-data">
+                        @csrf
                     <div class="form-group">
                         <label>Nombre*</label>
-                        <input type="text" name="nombre" class="form-control" require >
+                        <input type="text" name="videojuego" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Categoria*</label>
-                        <input type="text" name="categoria" class="form-control" require >
+                        <input type="text" name="categoria" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Plataforma*</label>
-                        <input type="text" name="plataforma" class="form-control" require >
+                        <input type="text" name="plataforma" class="form-control" required >
                     </div>
                     <div class="form-group">
                         <label>Precio*</label>
-                        <input type="text" name="nombre" class="form-control" require >
+                        <input type="number" name="precio" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion*</label>
+                        <input type="text" name="descripcion" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Clasificacion*</label>
-                        <input type="text" name="nombre" class="form-control" require >
+                        <input type="text" name="clasificacion" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Precio*</label>
-                        <input type="text" name="nombre" class="form-control" require >
+                        <label>Imagen*</label>
+                        <input type="file" name="imagen" required >
                     </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
                     </form>
                 </div>
             </div>

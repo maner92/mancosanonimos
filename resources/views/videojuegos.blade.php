@@ -31,7 +31,7 @@
                                     <a href="{{route('videojuego.edit', $videojuego->id)}}" class="btn btn-sm float-rigth btn-warning">Modificar</a>
                                 </td>
                                 <td>
-                                    <form action="{{route('videojuego.destroy',$videojuego)}}" method="POST"><!--Llamamos al metodo de delete posterior mente crado en el archivo web.php-->
+                                    <form action="{{route('videojuego.destroy',$videojuego->id)}}" method="POST"><!--Llamamos al metodo de delete posterior mente crado en el archivo web.php-->
                                         @method('DELETE')
                                         @csrf
                                         <input

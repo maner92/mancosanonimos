@@ -15,8 +15,8 @@ class VideojuegosC extends Controller
      */
     public function index()
     {
-        $videojuego = Videojuegos::all();
-        return view('videojuegos', ['videojuegos' =>$videojuego]);
+        $videojuegos = Videojuegos::all();
+        return view('videojuegos', compact('videojuegos'));
     }
 
     /**
@@ -72,7 +72,9 @@ class VideojuegosC extends Controller
      */
     public function edit($id)
     {
-        //
+        $videojuegos = Videojuegos::find($id);
+        
+        return view('videojuego.videojuegosmodificar', compact('videojuegos'));
     }
 
     /**
@@ -84,8 +86,10 @@ class VideojuegosC extends Controller
      */
     public function update(Request $request, $id)
     {
-        $videojuego=Videojuegos::find($id);
-        return view('videojuegos.created', compact('videojuego'));
+        $videojuego = Videojuegos::find($id);
+        
+        $videojuego->update($request->all());
+        return redirect('videojuego');
     }
 
     /**

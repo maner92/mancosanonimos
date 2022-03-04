@@ -21,7 +21,7 @@ class CreateVideojuegosTable extends Migration
             $table->string('clasificacion');
             $table->float('precio');
             $table->string('descripcion');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->timestamps();
 
         });

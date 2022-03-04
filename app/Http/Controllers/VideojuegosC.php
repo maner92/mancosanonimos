@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Videojuegos;
+use App\Http\Requests\VideojuegoRequest;
 
 class VideojuegosC extends Controller
 {
@@ -35,27 +36,18 @@ class VideojuegosC extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VideojuegoRequest $request)
     {
-        $request->validate([
-            'videojuego'    => ['required','unique:videojuego'],
-            'categoria'=> ['required'],
-            'plataforma'=> ['required'],
-            'clasificacion'=> ['required'],
-            'precio'=> ['required'],
-            'descripcion'   => ['required', 'max:200'],
-            'imagen'   => ['required|image|mimes:jpeg,png|max:3000']
-        ]);
-        Videojuegos::create([
-            'videojuego'    => $request->input('videojuego'),
-            'categoria'=> $request->input('categoria'),
-            'plataforma'=> $request->input('plataforma'),
-            'clasificacion'=> $request->input('clasificacion'),
-            'precio_compra'=> $request->input('precio_compra'),
-            'descripcion'   => $request->input('descripcion'),
-            'imagen'=>$request->input('name')->file('file')->store('imagenes', 'public')
-        ]);
-        return redirect('videojuego')->with('status','Registro exitoso gracias');
+        $nuevojuego = Videojuegos::created([
+            'user_id' => auth()->user()->id
+        ] +$request->all());
+
+        $request->file('imagen')->store('imagenes', 'public');
+        /*if($request->file('imagen')){
+            $nuevojuego->imagen = 
+            $nuevojuego->save();
+        }*/
+        return redirect()->route('videojuegos.index')->with('status', 'Guardado');
     }
 
     /**
@@ -94,7 +86,7 @@ class VideojuegosC extends Controller
         $videojuego = Videojuegos::find($id);
         
         $videojuego->update($request->all());
-        return redirect('videojuego')->with('status', 'Registro Modificado con exito');
+        return redirect()->route('videojuegos.index')->with('status', 'Registro Modificado con exito');
     }
 
     /**
@@ -108,6 +100,6 @@ class VideojuegosC extends Controller
         $videojuego = Videojuegos::find($id);
         $videojuego->delete();
 
-        return redirect('videojuego')->with('status', 'Registro Eliminado con exito');#Metodo para regresar a vista anterior
+        return redirect()->route('videojuegos.index')->with('status', 'Registro Eliminado con exito');#Metodo para regresar a vista anterior
     }
 }

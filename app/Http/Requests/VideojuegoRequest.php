@@ -13,7 +13,7 @@ class VideojuegoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class VideojuegoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'videojuego'    => ['required','unique:videojuegos'],
+            'categoria'=> ['required'],
+            'plataforma'=> ['required'],
+            'clasificacion'=> ['required'],
+            'precio'=> ['required'],
+            'descripcion'   => ['required', 'max:200'],
+            'imagen'   => ['required']
         ];
     }
 }

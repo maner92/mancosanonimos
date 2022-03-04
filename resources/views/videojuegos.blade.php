@@ -16,7 +16,7 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
-                                <th><a href="{{route('videojuego.create')}}" class="btn btn-sm btn-primary">Agregar</a></th>
+                                <th><a href="{{route('videojuegos.create')}}" class="btn btn-sm btn-primary">Agregar</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,10 +28,10 @@
                                 <td>{{$videojuego->clasificacion}}</td>
                                 <td>{{$videojuego->precio}}</td>
                                 <td>
-                                    <a href="{{route('videojuego.edit', $videojuego->id)}}" class="btn btn-sm float-rigth btn-warning">Modificar</a>
+                                    <a href="{{route('videojuegos.edit', $videojuego->id)}}" class="btn btn-sm float-rigth btn-warning">Modificar</a>
                                 </td>
                                 <td>
-                                    <form action="{{route('videojuego.destroy',$videojuego->id)}}" method="POST"><!--Llamamos al metodo de delete posterior mente crado en el archivo web.php-->
+                                    <form action="{{route('videojuegos.destroy',$videojuego->id)}}" method="POST"><!--Llamamos al metodo de delete posterior mente crado en el archivo web.php-->
                                         @method('DELETE')
                                         @csrf
                                         <input

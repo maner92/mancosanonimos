@@ -14,10 +14,11 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('videojuego.store')}}" method="POSTs" encrype="multipart/form-data">
+                    <form action="{{ route('videojuegos.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        
                     <div class="form-group">
-                        <label>Nombre*</label>
+                        <label>Videojuego*</label>
                         <input type="text" name="videojuego" class="form-control" required>
                     </div>
                     <div class="form-group">
@@ -42,11 +43,11 @@
                     </div>
                     <div class="form-group">
                         <label>Imagen*</label>
-                        <input type="file" name="imagen" required >
+                        <input accept="image/jpeg,image/png" multiple type="file" name="imagen[]" required >
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
                     </form>
                 </div>
             </div>

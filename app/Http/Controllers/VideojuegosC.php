@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Videojuegos;
 use App\Http\Requests\VideojuegoRequest;
 
+
 class VideojuegosC extends Controller
 {
 
@@ -38,15 +39,22 @@ class VideojuegosC extends Controller
      */
     public function store(VideojuegoRequest $request)
     {
-        $nuevojuego = Videojuegos::created([
-            'user_id' => auth()->user()->id
-        ] +$request->all());
 
-        $request->file('imagen')->store('imagenes', 'public');
-        /*if($request->file('imagen')){
-            $nuevojuego->imagen = 
-            $nuevojuego->save();
-        }*/
+//Salvar
+        $videojuego = Videojuegos::create([
+            'videojuego'    => $request->input('videojuego'),
+            'categoria'=>$request->input('categoria'),
+            'plataforma'=> $request->input('plataforma'),
+            'clasificacion'=>$request->input('clasificacion'),
+            'precio'=> $request->input('precio'),
+            'descripcion'   => $request->input('descripcion'),
+        ]);
+//Imagen
+        if($request->file('imagen')){
+            $videojuego->imagen = $request->file('imagen')->store('imagenes', 'public');
+            $videojuego->save();
+        }
+
         return redirect()->route('videojuegos.index')->with('status', 'Guardado');
     }
 
@@ -58,7 +66,9 @@ class VideojuegosC extends Controller
      */
     public function show($id)
     {
-        //
+        $videojuegos = Videojuegos::find($id);
+        
+        return view('videojuego.videojuegomostrar', compact('videojuegos'));
     }
 
     /**

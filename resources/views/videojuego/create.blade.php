@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label>Imagen*</label>
-                        <input accept="image/jpeg,image/png" multiple type="file" name="imagen[]" required >
+                        <input type="file" name="imagen" required >
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Guardar</button>

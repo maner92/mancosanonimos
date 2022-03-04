@@ -20,7 +20,7 @@
           <div class="card">
             <div class="card-header">{{ __('Modificar VideoJuego') }}</div>
               <div class="card-body">
-                <form action="{{ route('videojuegos.update', $videojuegos->id) }}" method="POST" ectype="multipart/form-data"> 
+                <form action="{{ route('videojuegos.edit', $videojuegos->id) }}" method="POST" ectype="multipart/form-data"> 
                     @csrf
                     @method('PUT')
                     <div class="mb-3">

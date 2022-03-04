@@ -18,8 +18,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <img src="{{ $videojuegos->get_imagen }}" class="img-fluid rounded-start" >
-                        <div class="card-body">
+                    @if($videojuegos->imagen)
+                        <img src="{{ $videojuegos->get_imagen }}" class="img-fluid rounded-start" >
+                    @endif
+                    <div class="card-body">
                             <form action="{{ route('videojuegos.edit', $videojuegos->id) }}" method="POST" ectype="multipart/form-data"> 
                                 @csrf
                                 @method('PUT')
@@ -43,8 +45,10 @@
                                     <label class="form-label">Precio</label>
                                     <input type="double" class="form-control" name="precio" value="{{ $videojuegos->precio }}" disabled="true">
                                 </div>
+                                    @method('GET')
+                                    @csrf
                                     <div class="mt-3">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-sm float-rigth btn-warning">Modificar</button>
                                 </div>
                             </form>
                         </div>

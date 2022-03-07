@@ -21,7 +21,7 @@ class Videojuegos extends Model
 
     public function getGetImagenAttribute(){
         if($this->imagen){
-            return url("storge/$this->imagen");
+            return url("/storge/$this->imagen");
         }
     }
 

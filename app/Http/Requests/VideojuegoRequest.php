@@ -29,7 +29,7 @@ class VideojuegoRequest extends FormRequest
             'plataforma'=> ['required'],
             'clasificacion'=> ['required'],
             'precio'=> ['required'],
-            'descripcion'   => ['required', 'max:200'],
+            'descripcion'   => ['required'],
             'imagen'=> ['required'],
         ];
     }

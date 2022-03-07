@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('videojuego.navbar')
 
 @section('content')
             <!--Creacion de tablas-->

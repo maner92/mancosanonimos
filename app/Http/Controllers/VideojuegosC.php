@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Videojuegos;
 use App\Http\Requests\VideojuegoRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class VideojuegosC extends Controller
@@ -37,7 +38,7 @@ class VideojuegosC extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideojuegoRequest $request)
+    public function store(Request $request)
     {
 
 //Salvar
@@ -50,8 +51,8 @@ class VideojuegosC extends Controller
             'descripcion'   => $request->input('descripcion'),
         ]);
 //Imagen
-        if($request->file('imagen')){
-            $videojuego->imagen = $request->file('imagen')->store('imagenes', 'public');
+        if($request->file('image')){
+            $videojuego->imagen = $request->file('image')->store('imagenes', 'public');
             $videojuego->save();
         }
 
@@ -66,9 +67,9 @@ class VideojuegosC extends Controller
      */
     public function show($id)
     {
-        $videojuegos = Videojuegos::find($id);
+        $videojuego = Videojuegos::find($id);
         
-        return view('videojuego.videojuegomostrar', compact('videojuegos'));
+        return view('videojuego.videojuegomostrar', compact('videojuego'));
     }
 
     /**
@@ -80,7 +81,7 @@ class VideojuegosC extends Controller
     public function edit($id)
     {
         $videojuegos = Videojuegos::find($id);
-        
+
         return view('videojuego.videojuegosmodificar', compact('videojuegos'));
     }
 
@@ -96,6 +97,13 @@ class VideojuegosC extends Controller
         $videojuego = Videojuegos::find($id);
         
         $videojuego->update($request->all());
+        if($request->file('image')){
+            //Eliminar imagen
+            
+            Storage::disk('public')->delete($videojuego->imagen);
+            $videojuego->imagen = $request->file('image')->store('imagenes', 'public');
+            $videojuego->save();
+        }
         return redirect()->route('videojuegos.index')->with('status', 'Registro Modificado con exito');
     }
 
@@ -105,9 +113,9 @@ class VideojuegosC extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Videojuegos $videojuego)
     {
-        $videojuego = Videojuegos::find($id);
+        Storage::disk('public')->delete($videojuego->imagen);
         $videojuego->delete();
 
         return redirect()->route('videojuegos.index')->with('status', 'Registro Eliminado con exito');#Metodo para regresar a vista anterior

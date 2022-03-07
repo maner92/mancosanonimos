@@ -1,54 +1,36 @@
-@extends('layouts.app')
+@extends('videojuego.navbar')
 
 @section('content')
 @if (session('status'))
-    <div class="flex justify-center items-center py-4">
-        <div >
-            <div class="flex">
-                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
-                <div>
-                    <p class="font-bold">¡Éxito!</p>
-                    <p class="text-sm">{{ session('status') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
 @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    @if($videojuegos->imagen)
-                        <img src="{{ $videojuegos->get_imagen }}" class="img-fluid rounded-start" >
+                    @if($videojuego->imagen)
+                        <img src="/storage/{{ $videojuego->imagen }}" class="card-img-top" >
                     @endif
                     <div class="card-body">
-                            <form action="{{ route('videojuegos.edit', $videojuegos->id) }}" method="POST" ectype="multipart/form-data"> 
+                            <form action="{{ route('videojuegos.edit', $videojuego->id) }}" method="POST" ectype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-                                    <label class="form-label">Nombre del Videojuego</label>
-                                    <input type="text" class="form-control" name="videojuego" value="{{ $videojuegos->videojuego }}" disabled="true">
+                                <div>
+                                    <div class="card-body">
+                                        <h3 class="card-title" style="font-weight:bolder">{{ $videojuego->videojuego }}</h3>
+                                            <h5 class="card-text" style="text-align: justify">{{$videojuego->descripcion}}</h5>
+                                        <h4 class="card-text " style="font-weight:bolder ">Categoria</h4>
+                                            <h5 class="card-text" >{{ $videojuego->categoria }}</h5>
+                                            <h4 class="card-text" style="font-weight:bolder">Plataforma</h4>
+                                            <h5 class="card-text">{{ $videojuego->plataforma}}</h5>
+                                            <h4 class="card-text" style="font-weight:bolder">Clasificacion</h4>
+                                            <h5 class="card-text">{{$videojuego->clasificacion}}</h5>
+                                            <h4 class="card-text" style="font-weight:bolder">Precio</h4>
+                                            <h5 class="card-text ">{{$videojuego->precio}}</h5>
+                                            <h5 class="card-text"><small class="text-muted"><i>Updated: {{$videojuego->updated_at->format('d-M-Y')}}</i></small></h5>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Categoria</label>
-                                    <input type="text" class="form-control" name="categoria" value="{{ $videojuegos->categoria }}" disabled="true">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Plataforma</label>
-                                    <input type="text" class="form-control" name="plataforma" value="{{ $videojuegos->plataforma}}" disabled="true">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Clasificacion</label>
-                                    <input type="text" class="form-control" name="clasificacion" value="{{ $videojuegos->clasificacion }}" disabled="true">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Precio</label>
-                                    <input type="double" class="form-control" name="precio" value="{{ $videojuegos->precio }}" disabled="true">
-                                </div>
-                                    @method('GET')
-                                    @csrf
-                                    <div class="mt-3">
-                                    <button type="submit" class="btn btn-sm float-rigth btn-warning">Modificar</button>
+                                <a href="{{route('videojuegos.edit', $videojuego->id)}}" class="btn btn-sm float-rigth btn-warning">Modificar</a>
                                 </div>
                             </form>
                         </div>

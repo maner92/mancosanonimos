@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Videojuegos;
 use App\Http\Requests\VideojuegoRequest;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use App\Events\ProjectSaved;
 
 
 class VideojuegosC extends Controller
@@ -52,8 +54,11 @@ class VideojuegosC extends Controller
         ]);
 //Imagen
         if($request->file('image')){
-            $videojuego->imagen = $request->file('image')->store('imagenes', 'public');
+            $videojuego->imagen = $request->file('image')->store('imagenes');
             $videojuego->save();
+            //Metodo redimencionar imagen
+            ProjectSaved::dispatch($videojuego);
+
         }
 
         return redirect()->route('videojuegos.index')->with('status', 'Guardado');
@@ -99,7 +104,9 @@ class VideojuegosC extends Controller
         $videojuego->update($request->all());
         if($request->file('image')){
             //Eliminar imagen
-            
+
+            ProjectSaved::dispatch($videojuego);
+
             Storage::disk('public')->delete($videojuego->imagen);
             $videojuego->imagen = $request->file('image')->store('imagenes', 'public');
             $videojuego->save();

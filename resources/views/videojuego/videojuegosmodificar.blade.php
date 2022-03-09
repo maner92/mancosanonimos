@@ -7,12 +7,12 @@
           <div class="card">
               <div class="card-header">Modificar VideoJuego</div>
               <div class="card-body">
-                @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-                @endif
                 <form action="{{ route('videojuegos.update', $videojuegos->id)}}" method="POST" enctype="multipart/form-data">
+                  @if (session('status'))
+                  <div class="alert alert-success" role="alert">
+                      {{ session('status') }}
+                  </div>
+                  @endif
                   @csrf
                   @method('PUT')
                     <div class="mb-3">

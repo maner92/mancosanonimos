@@ -14,7 +14,7 @@ class CreateVideojuegosTable extends Migration
     public function up()
     {
         Schema::create('videojuegos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('videojuego');
             $table->string('categoria');
             $table->string('plataforma');
@@ -23,6 +23,8 @@ class CreateVideojuegosTable extends Migration
             $table->string('descripcion');
             $table->string('imagen')->nullable();
             $table->timestamps();
+
+            //$table->foreign('user_id')->references('id')->on('users');
 
         });
     }

@@ -39,7 +39,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contactanos.index') }}">Conctanos</a>
+                            <a class="nav-link" href="{{ route('contactanos.index') }}">Contactanos</a>
                         </li>
                         <!-- Authentication Links -->
                         @guest
